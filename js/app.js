@@ -3,12 +3,19 @@ var app = angular.module('MyApp');
 
 app.controller('AppCtrl', function($scope) {
 
+  var MESSAGE_SCHEMA = {
+    "type": 'object',
+    "properties": {
+      "text": {
+        "type": "string"
+      }
+    }
+  };
 
   $scope.payload = function(data){
     $scope.displayText = data.payload.text;
     $scope.$apply()
   }
-
 
   var GET = {};
   var query = window.location.search.substring(1).split("&");
@@ -24,15 +31,6 @@ app.controller('AppCtrl', function($scope) {
     "uuid": GET.uuid,
     "token": GET.token
   });
-
-  var MESSAGE_SCHEMA = {
-    "type": 'object',
-    "properties": {
-      "text": {
-        "type": "string"
-      }
-    }
-  };
 
   conn.on('ready', function(data){
     console.log('UUID AUTHENTICATED!');
