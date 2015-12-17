@@ -3,6 +3,9 @@ var app = angular.module('MyApp',['ngMaterial']);
 
 app.controller('AppCtrl', function($scope) {
 
+  // initialize with at least something
+  $scope.displayText = "Hello World";
+
   var MESSAGE_SCHEMA = {
     "type": 'object',
     "properties": {
@@ -43,6 +46,18 @@ app.controller('AppCtrl', function($scope) {
     conn.on('message', function(data){
       $scope.payload(data);
     });
+
+    $scope.sendMessage = function(){
+      console.log('sending message!');
+      var message = {
+        "devices": "*",
+        "payload": {
+          "ngclickEvent": true
+        }
+      };
+      conn.message(message);
+    }
+
 
   });
 
